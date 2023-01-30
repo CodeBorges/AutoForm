@@ -1,0 +1,193 @@
+﻿@model List<UsuarioViewModel>
+@{
+    ViewData["Title"] = "Cadastro de Categoria";
+}
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Cadastro de Usuários</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-6">
+                        <span>
+                            <strong>Dados do usuário</strong>
+                        </span>
+                        <hr class="border-3 mb-3" style="margin: 0.5rem 0;" />
+                        <form method="post">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <input type="text" id="txtIdUsuario" hidden />
+                                    <label for="txtNomeUsuario" class="form-label">Nome</label>
+                                    <input type="text" id="txtNomeUsuario" name="Nome" class="form-control" placeholder="Ex. Paulo Ferreira" required>
+                                </div>
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-6">
+                                    <div class="mb-3">
+                                        <label for="txtLogin" class="form-label">Login</label>
+                                        <input type="text" id="txtLogin" name="Login" class="form-control" placeholder="Ex. 11253" onkeypress="return event.charCode >= 48 && event.charCode <= 57" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="txtMudarSenha" class="form-label">Mudar a senha no próximo login</label>
+                                        <select id="txtMudarSenha" name="MudarSenha" class="form-select" aria-label="Selecione um item da lista." required>
+                                            <option value="">Selecione</option>
+                                            <option value="false">Não</option>
+                                            <option value="true">Sim</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="txtEmail" class="form-label">E-mail</label>
+                                        <input type="text" id="txtEmail" name="E-mail" class="form-control" placeholder="Ex. email@dominio.com.br" required>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-6">
+                                    <div class="mb-3">
+                                        <label for="txtSenha" class="form-label">Senha</label>
+                                        <input type="password" id="txtSenha" name="Senha" class="form-control" placeholder="Ex. 12" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="txtIdDepartamento" class="form-label">Departamento</label>
+                                        <select id="txtIdDepartamento" name="IdDepartamento" class="form-select" aria-label="Selecione um item da lista." required>
+                                            <option value="">Selecione</option>
+                                            @foreach (var item in DepartamentoViewModel.ListaDepartamento)
+                                            {
+                                                <option value="@item.ID">@item.NOME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="txtIdTipoUsuario" class="form-label">Tipo de Usuário</label>
+                                        <select id="txtIdTipoUsuario" name="IdTipoUsuario" class="form-select" aria-label="Selecione um item da lista." required>
+                                            <option value="">Selecione</option>
+                                            @foreach (var item in TipoUsuarioViewModel.ListaTipoUsuario)
+                                            {
+                                                <option value="@item.ID">@item.NOME</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <a id="btnCadastrar" onclick="cadastrar();" class="btn btn-primary">Cadastrar</a>
+                                        <a id="btnEditar" onclick="salvar();" class="btn btn-success" hidden>Salvar</a>
+                                        <button id="btnCancelar" onclick="cancelar();" type="reset" class="btn btn-danger" hidden>Cancelar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <hr class="border-3 mb-4" style="opacity: inherit;" />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped text-center" style="font-size: 13px">
+                                <thead>
+                                    <tr>
+                                        <th>Editar</th>
+                                        <th>Nome</th>
+                                        <th>Login</th>
+                                        <th>E-mail</th>
+                                        <th>Mudar Senha</th>
+                                        <th>Departamento</th>
+                                        <th>Tipo de Usuário</th>
+                                        <th>Data de Cadastro</th>
+                                        <th>Usuário que cadastrou</th>
+                                        <th>Última Alteração</th>
+                                        <th>Usuário que alterou</th>
+                                        <th>Excluir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="td-clicavel">
+                                                <a href="#" onclick="editar();" class="td-clicavel">
+                                                    <div class="td-clicavel">
+                                                        <i class="fa-solid fa-pen-to-square fa-lg text-success"></i>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td class="tdIdUsuario" hidden>@item.ID</td>
+                                            <td class="tdIdDepartamento" hidden>@item.ID_DEPARTAMENTO</td>
+                                            <td class="tdIdTipoUsuario" hidden>@item.ID_TIPO_USUARIO</td>
+                                            <td class="tdNomeUsuario">@item.NOME.Titleize()</td>
+                                            <td class="tdLogin">@item.USUARIO</td>
+                                            <td class="tdSenha"hidden>@item.SENHA</td>
+                                            <td class="text-lowercase tdEmail">@item.EMAIL</td>
+                                            <td class="tdMudarSenha">@(item.MUDAR_SENHA ? "Sim" : "Não" )</td>
+                                            <td class="tdDepartamento">@item.NOME_DEPARTAMENTO.Titleize()</td>
+                                            <td class="tdTipoUsuario">@item.NOME_TIPO_USUARIO.Titleize()</td>
+                                            <td class="DataCadastro">
+                                                @if (item.DATA_CADASTRO.HasValue)
+                                                {
+                                                    @item.DATA_CADASTRO.Value.ToShortDateString()
+                                                }
+                                                else
+                                                {
+                                                    @item.DATA_CADASTRO
+                                                }
+                                            </td>
+                                            <td class="UsuarioCadastro">@item.NOME_CADASTRO.Titleize()</td>
+                                            <td class="DataAlteracao">
+                                                @if (item.DATA_ALTERACAO.HasValue)
+                                                {
+                                                    @item.DATA_ALTERACAO.Value.ToShortDateString()
+                                                }
+                                                else
+                                                {
+                                                    @item.DATA_ALTERACAO
+                                                }
+                                            </td>
+                                            <td class="UsuarioAlteracao">@item.NOME_ALTERACAO.Titleize()</td>
+                                            <td class="td-clicavel">
+                                                <a href="#" class="td-clicavel" onclick="excluir(@item.ID);">
+                                                    <div class="td-clicavel">
+                                                        <i class="fa-solid fa-trash fa-lg text-danger"></i>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalExcluir" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir esse registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btnExcluir" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin/Usuario.js"></script>
+}

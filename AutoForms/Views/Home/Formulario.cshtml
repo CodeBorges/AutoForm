@@ -1,0 +1,228 @@
+﻿@model FormularioCategoriaViewModel
+
+@*---------------------------------------------INFORMAÇÕES------------------------------------------------*@
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+
+<span id="topo"></span>
+<form id="Form1">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="col-12 p-2  card-header bg-pattern">
+                    <div class="col-md-10 offset-md-1 d-flex align-items-center justify-content-between">
+                        <h4 class="text-capitalize text-light m-1">@Model.Formulario.NOME</h4>
+                        <input type="text" id="txtIdDocumento" value="@Model.Documento.ID" hidden />
+                        <input type="text" id="txtMeta" value="@Model.Formulario.META" hidden />
+                        <h5 class=" text-light m-1 ">Documento N° @Model.Documento.ID</h5>
+                    </div>
+                </div>
+                <div class="card-body my-4">
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="row">
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-6 col-xs-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend width-group-prepend">
+                                            <label for="txtIdDepartamento" class="input-group-text input-border-radius-off">Departamento</label>
+                                        </div>
+                                        <select id="txtIdDepartamento" name="IdDepartamento" class="form-select" aria-label="Selecione um item da lista." required>
+                                            <option value="" selected>Selecione</option>
+                                            @foreach (var item in DepartamentoViewModel.ListaDepartamento)
+                                            {
+                                                <option value="@item.ID">@item.NOME.ToUpper()</option>
+                                            }
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend width-group-prepend ">
+                                            <label for="txtIdLocalizacao" class="input-group-text input-border-radius-off ">Localizacao</label>
+                                        </div>
+                                        <select id="txtIdLocalizacao" name="idLocalizacao" class="form-select" aria-label="Selecione um item da lista." required>
+                                            <option value="" selected>Selecione</option>
+                                            @foreach (var item in LocalizacaoViewModel.RetornarLocalizacao)
+                                            {
+                                                <option value="@item.ID">@item.NOME.ToUpper()</option>
+                                            }
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-6 col-xs-12">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend width-group-prepend">
+                                            <label for="txtAuditado" class="input-group-text input-border-radius-off">Auditado</label>
+                                        </div>
+                                        <input type="text" id="txtAuditado" name="Auditado" class="form-control" placeholder="Ex. João Silva" required>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend width-group-prepend">
+                                            <label for="txtIdAuditor" class="input-group-text input-border-radius-off">Auditor</label>
+                                        </div>
+                                        <input id="txtIdAuditor" name="IdAuditor" class="form-control input-disabled" value="@Model.UsuarioLogado.NOME.Titleize()" disabled required="" data-bs-toggle="tooltip" data-bs-placement="top" title="Não é possivel alterar este campo!" />
+                                        <input id="txtNomeAuditor" name="NomeAuditor" class="form-control" value="@Model.UsuarioLogado.ID" hidden />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box d-flex align-items-center justify-content-center">
+                    <button type="button" onclick="excluir(@Model.Documento.ID);" class="btn btn-danger d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal">Excluir</button>
+                    <button type="button" class="btn btn-dark d-flex align-items-center justify-content-center" onclick="salvarInformacoes(); retornarRegistroResposta(@Model.Documento.ID);">Proximo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</form>
+@*STEP 2*@
+<form id="Form2" class="d-none">
+    <div class="row mb-4 step" id="step_2">
+        <div class="col-12">
+            <div class="card">
+                <div class="col-12 p-2  card-header bg-pattern">
+                    <div class="col-md-10 offset-md-1 d-flex align-items-center justify-content-between">
+                        <h4 class=" text-light mx-2">Perguntas</h4>
+                        <h4 class=" text-light mx-2">Meta: @Model.Formulario.META</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            @foreach (var categoria in Model.ListaFormularioCategoria)
+                            {
+                                <div class="col-12 p2 card-header bg-pattern-category">
+                                    <div class="text-center text-light">
+                                        <strong>@categoria.NOME_CATEGORIA</strong>
+                                    </div>
+                                </div>
+                                <div class="col-12 p2 card-header " style="background: #F8F0AF; border: 1px solid #808080">
+                                    <div>
+                                        <strong>Conceito: </strong>@categoria.CONCEITO
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                                        <div style="border-left: 1px solid #808080; border-right: 1px solid #808080">
+                                            <div class="d-flex align-items-center justify-content-between" style="border-bottom: 1px solid #808080">
+                                                <div class="w-75 text-center" style="border-right: 1px solid #808080"><strong class="p-2 m-0">Descrição</strong></div>
+                                                <div class=" w-25 d-flex align-items-center justify-content-evenly">
+                                                    <div>
+                                                        <strong>Nota</strong>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @foreach (var pergunta in PerguntaDAO.RetornarPerguntaPorIdCategoria(categoria.ID_CATEGORIA))
+                                            {
+                                                <div class="d-flex align-items-center justify-content-between" style="border-bottom: 1px solid #808080">
+                                                    <input type="text" id="@($"pergunta_{pergunta.ID}")" value="@pergunta.ID" hidden />
+                                                    <input type="text" id="@($"categoria_{pergunta.ID}")" value="@categoria.ID" hidden />
+                                                    <div class="w-75" style="border-right: 1px solid #808080"><p class="p-2 m-0 FirstLetterUpper">@pergunta.NOME</p></div>
+                                                    <div class="w-25 d-flex align-items-center gap-2">
+                                                        <div class="w-100 text-center">
+                                                            <input class="form-check-input w-25 text-center p-2 focus-disabled"
+                                                                   maxlength="@Model.Formulario.META.ToString().Length;" min="0" max="@Model.Formulario.META"
+                                                                   onkeypress="return somenteNumeros(event);"
+                                                                   style="border: none;border-bottom: 1px solid #808080; " type="text"
+                                                                   onblur="valorMinMax(@pergunta.ID);verificarMedia(@pergunta.ID, this.value); "
+                                                                   id=@($"resposta_{pergunta.ID}")>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-between0" style="border: 1px solid #808080; border-top: none;">
+                                            <div class="w-75 d-flex align-items-center justify-content-end " style="border-right: 1px solid #808080"><strong class="p-2 m-0">Media</strong></div>
+                                            <div class="w-25 d-flex align-items-center justify-content-evenly">
+                                                <div>
+                                                    <input type="text" id=@($"mediaCategoria_{categoria.ID}") value=@($"{categoria.MediaCategoria.MEDIA}%") class="border-0 text-center" style="background: none; pointer-events: none;" disabled />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box d-flex align-items-center justify-content-between w-100 ">
+                    <button type="button" id="Back1" class="btn btn-dark d-flex align-items-center justify-content-center">Voltar</button>
+                    <button type="button" onclick="botaoAvancar2();retornarRegistroRespostaObservacao(@Model.Documento.ID);" @*id="Next2"*@ class="btn btn-dark d-flex align-items-center justify-content-center">Proximo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@*STEP 3*@
+<form id="Form3" class="d-none">
+    <div class="row mb-4" id="step_3">
+        <div class="col-12">
+            <div class="card">
+                <div class="col-12 card-header bg-pattern">
+                    <div class="col-md-10 offset-md-1">
+                        <h4 class=" text-light ">Observações</h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-10 offset-md-1">
+                            <div class="row">
+                                <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-12">
+                                    @foreach (var observacao in Model.ListaObservacao)
+                                    {
+
+                                        <div class="mb-3 text-center">
+                                            <input type="text" id="txtObservacaoId" value="@observacao.ID" hidden />
+                                            <label for="@observacao.ID" class="form-label h5">
+                                                <strong>@observacao.NOME</strong>
+                                            </label>
+                                            <textarea class="form-control " id="@($"chkIdObservacao_{observacao.ID}")" rows="3" style="resize: none; height: 130px"></textarea>
+                                        </div>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-box d-flex justify-content-between align-items-center w-100">
+                    <div>
+                        <button type="button" id="Back2" class="btn btn-dark d-flex align-items-center justify-content-center">Voltar</button>
+                    </div>
+                    <div class="d-flex">
+                        <button type="button" onclick="excluir(@Model.Documento.ID);" class="btn btn-danger d-flex align-items-center justify-content-center" data-bs-toggle="modal" data-bs-target="#exampleModal" id="Back2">Excluir</button>
+                        <button type="button" onclick="salvarObservacao();" class="btn btn-dark d-flex align-items-center justify-content-center" id="Next3">Enviar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<!-- Modal -->
+<div class="modal" id="modalExcluir" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir esse documento?</p>
+                <p>Documento: <strong>N°@Model.Documento.ID</strong></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btnExcluir" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/home/Formulario.js"></script>
+}

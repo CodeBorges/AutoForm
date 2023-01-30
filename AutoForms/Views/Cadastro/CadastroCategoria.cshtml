@@ -1,0 +1,99 @@
+﻿@model List<CategoriaViewModel>
+@{
+    ViewData["Title"] = "Cadastro de Categoria";
+}
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Cadastro de Categoria</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-3">
+                        <form method="post">
+                            <input type="text" id="txtIdCategoria" hidden />
+                            <div class="mb-3">
+                                <label for="txtIdFormulario" class="form-label">Selecione o Formulario</label>
+                                <select id="txtIdFormulario" name="IdFormulario" class="form-select" aria-label="Selecione o Formulario" required>
+                                    <option value="">Selecione</option>
+                                    @foreach (var item in FormularioDAO.RetornarFormulario())
+                                    {
+                                        <option value="@item.ID">@item.NOME</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtNomeCategoria" class="form-label">Insira a Categoria</label>
+                                <input type="text" id="txtNomeCategoria" name="Categoria" class="form-control" placeholder="Ex. Sustentabilidade" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="txtConceito" class="form-label">Insira o Conceito</label>
+                                <input type="text" id="txtConceito" name="Conceito" class="form-control"
+                                       placeholder="Ex. Separar o necessário do desnecessário, dando o destino adequado para todos. " required>
+                            </div>
+
+                            <div class="mb-3">
+                                <a id="btnCadastrar" onclick="cadastrar();" class="btn btn-primary">Cadastrar</a>
+                                <a id="btnEditar" onclick="salvar();" class="btn btn-success" hidden>Salvar</a>
+                                <button id="btnCancelar" onclick="cancelar();" type="reset" class="btn btn-danger" hidden>Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <hr class="border-3 mb-4" style="opacity: inherit;" />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped text-center" style="font-size: 13px">
+                                <thead>
+                                    <tr>
+                                        <th>Editar</th>
+                                        <th>Nome</th>
+                                        <th>Conceito</th>
+                                        <th>Formulário</th>
+                                        <th>Data de Cadastro</th>
+                                        <th>Usuário que cadastrou</th>
+                                        <th>Última Alteração</th>
+                                        <th>Usuário que alterou</th>
+                                        <th>Excluir</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bodyPartialCategoria">
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalExcluir" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir esse registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btnExcluir" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/cadastro/Categoria.js"></script>
+}

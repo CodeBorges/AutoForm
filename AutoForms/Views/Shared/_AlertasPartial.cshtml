@@ -1,0 +1,83 @@
+﻿
+@if (TempData["Sucesso"] != null)
+{
+    <div aria-live="polite" aria-atomic="true" class="bg-dark position-relative  bd-example-toasts">
+        <div class="toast-container position-absolute top-0 end-0 m-2" id="toastPlacement">
+            <div class="toast show esconderToast" id="#fecharToast">
+                <div class="toast-header">
+                    <div class="m-1">
+                        <strong class="me-auto text-success">Sucesso</strong>
+                    </div>
+                </div>
+                <div class="toast-body bg-success text-light opacity-75">
+                    @TempData["Sucesso"]
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@if (TempData["Erro"] != null)
+{
+    <div aria-live="polite" aria-atomic="true" class="bg-dark position-relative  bd-example-toasts">
+        <div class="toast-container position-absolute top-0 end-0 m-2" id="toastPlacement">
+            <div class="toast show esconderToast" id="#fecharToast">
+                <div class="toast-header">
+                    <div class="m-1">
+                        <strong class="me-auto text-danger">Erro</strong>
+                    </div>
+                </div>
+                <div class="toast-body bg-danger text-light opacity-75">
+                    @TempData["Erro"]
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@*Bloco para alert de erro de retorno de View*@
+@if (ViewBag.Erro != null)
+{
+    <div class="col-12">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            @ViewBag.Erro
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+
+}
+
+@if (ViewBag.Sucesso != null)
+{
+    <div aria-live="polite" aria-atomic="true" class="bg-dark position-relative  bd-example-toasts">
+        <div class="toast-container position-absolute top-0 end-0 m-2" id="toastPlacement">
+            <div class="toast show esconderToast" id="#fecharToast">
+                <div class="toast-header">
+                    <div class="m-1">
+                        <strong class="me-auto text-success">Sucesso</strong>
+                    </div>
+                </div>
+                <div class="toast-body bg-success text-light opacity-75">
+                    @ViewBag.Sucesso
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<!-- Toast -->
+<div aria-live="polite" aria-atomic="true" class="bg-dark position-relative  bd-example-toasts">
+    <div class="toast-container position-absolute top-0 end-0 m-2" id="toastPlacement">
+        <div class="toast" id="toast">
+            <div class="toast-header">
+                <div class="m-1">
+                    <strong class="me-auto text-danger">Alerta</strong>
+                </div>
+            </div>
+            <div class="toast-body bg-danger text-light opacity-75">
+                Existem perguntas a serem respondidas!
+            </div>
+        </div>
+    </div>
+</div>

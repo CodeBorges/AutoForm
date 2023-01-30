@@ -1,0 +1,159 @@
+/*DESABILITANDO O CLICK DO USUARIO NO INPUT*/
+
+.input-disabled {
+    cursor: not-allowed;
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #bbb;
+    background-color: #e9ecef;
+}
+
+.form-control[type=file]:not(:disabled):not([readonly]), [type=file].dataTable-input:not(:disabled):not([readonly]) {
+    cursor: pointer;
+}
+
+.form-control:disabled, .dataTable-input:disabled, .form-control[readonly], [readonly].dataTable-input {
+    background-color: #e9ecef;
+    opacity: 1;
+}
+
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .dataTable-input:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: #dde0e3;
+}
+
+.form-control:hover:not(:disabled):not([readonly])::file-selector-button, .dataTable-input:hover:not(:disabled):not([readonly])::file-selector-button {
+    background-color: #dde0e3;
+}
+
+.form-control:hover:not(:disabled):not([readonly])::-webkit-file-upload-button, .dataTable-input:hover:not(:disabled):not([readonly])::-webkit-file-upload-button {
+    background-color: #dde0e3;
+}
+
+.form-control-color:not(:disabled):not([readonly]) {
+    cursor: pointer;
+}
+
+/*TIRANDO O BORDER RADIUS DE LADOS ESPECIFICOS*/
+
+.input-border-radius-off {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*DEFININDO TAMANHA FIXO DA LABEL DOS INPUTES DA PARTE DE INFORMAÇÕES*/
+.width-group-prepend {
+    width: 129px;
+}
+
+.width-group-prepend-CI {
+    width: 5rem;
+}
+/*DEFININDO BACKGROUND PADRAO */
+.bg-pattern {
+    background-color: #343a40;
+}
+
+/*BACKGROUND PADRAO DAS CATEGORIAS */
+.bg-pattern-category {
+    background-color: #343a40;
+}
+
+/*REMOVENDO MARGIN E PADDING DO TD*/
+.td-remove-m-p {
+    margin: 0;
+    padding: 0;
+    
+}
+    /*AUMENTANDO O TAMANHO DO RADIO*/
+    .td-remove-m-p input {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+    }
+
+/*DEFININDO TAMANHO DA TD DE RESPOSTAS*/
+
+.td-label-height {
+    cursor: pointer;
+    height: 100%;
+}
+
+    .td-label-height input {
+        cursor: pointer;
+    }
+
+.form-control, .form-select {
+    margin-right: .5rem;
+}
+
+
+
+/*ARRUMANDO PROBLEMAS DO RESPONSIVO*/
+
+@media (max-width: 768px) {
+    .td-label-height {
+        cursor: pointer;
+        min-height: 40px;
+        height: 100%;
+    }
+
+    .card-responsive {
+        width: 80% !important;
+    }
+}
+
+
+/*BOTAO PARA TROCAR ENTRE LINHAS E CARDS*/
+
+.toggleButton {
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+    .toggleButton li {
+        list-style: none;
+    }
+
+        .toggleButton li button,
+        .toggleButton li button:hover {
+            display: block;
+            color: #fff;
+        }
+
+        .toggleButton li.ativo button {
+            background: #fff;
+            color: #343a40;
+        }
+
+/*STEPS*/
+
+
+.btn-box {
+    margin: 10px auto;
+}
+
+    .btn-box button {
+        width: 110px;
+        height: 35px;
+        margin: 0 10px;
+        border-radius: 30px;
+    }
+
+/*SCROLL*/
+::-webkit-scrollbar {
+    width: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 0;
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+

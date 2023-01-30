@@ -1,0 +1,23 @@
+﻿@{
+    ViewData["Title"] = "Admin";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Painel Admin</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a asp-controller="Admin" asp-action="CadastroUsuario" class="list-group-item list-group-item-action">Cadastro e Edição de Usuários</a>
+                    <a asp-controller="Admin" asp-action="CadastroDepartamento" class="list-group-item list-group-item-action">Cadastro e Edição de Departamentos</a>
+                    <a asp-controller="Admin" asp-action="CadastroTipoUsuario" class="list-group-item list-group-item-action">Cadastro e Edição do Tipo de Usuário</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

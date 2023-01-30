@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "Cadastros";
+}
+
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Painel Cadastros</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a asp-controller="Cadastro" asp-action="CadastroLocalizacao" class="list-group-item list-group-item-action">Cadastro e Edição de Localizações</a>
+                    <a asp-controller="Cadastro" asp-action="CadastroFormulario" class="list-group-item list-group-item-action">Cadastro e Edição de Formulário</a>
+                    <a asp-controller="Cadastro" asp-action="CadastroCategoria" class="list-group-item list-group-item-action">Cadastro e Edição de Categoria</a>
+                    <a asp-controller="Cadastro" asp-action="CadastroPerguntas" class="list-group-item list-group-item-action">Cadastro e Edição de Perguntas</a>
+                    <a asp-controller="Cadastro" asp-action="CadastroObservacao" class="list-group-item list-group-item-action">Cadastro e Edição de Observações</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

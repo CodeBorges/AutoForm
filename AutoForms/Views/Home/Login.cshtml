@@ -1,0 +1,89 @@
+﻿@{ Layout = null; }
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+
+<body>
+    <form asp-controller="Home" asp-action="Login" style="all: unset;">
+        <div class="container-fluid min-vh-100" style="background-color: #eee;">
+            <div class="row d-flex justify-content-center align-items-center" style="padding-top: 5rem;">
+                <div class="col-6" style="max-width: 400px;">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <img src="~/img/logo45anos.jpg" style="width: 150px; height: auto;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center pt-3">
+                <div class="col-6" style="max-width: 400px;">
+                    <div class="card shadow">
+                        <div class="card-body text-center pt-3 pb-3">
+                            <div class="row justify-content-center">
+                                <div class="col-8 mb-4">
+                                    <h3>Login</h3>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-10 mt-2">
+
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-8 mb-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="user">
+                                            <i class="fa-solid fa-user"></i>
+                                        </span>
+                                        <input type="text" id="usuario" name="usuario" class="form-control"
+                                               placeholder="RE" aria-label="Username"
+                                               aria-describedby="user" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-8 mb-4">
+                                    <div class="input-group">
+                                        <span class="input-group-text" id="pass">
+                                            <i class="fa-solid fa-lock"></i>
+                                        </span>
+                                        <input type="password" id="senha" name="senha"
+                                               class="form-control" placeholder="Senha"
+                                               aria-label="Password"
+                                               aria-describedby="pass" required>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="col-6 mb-lg-5">
+                                    <button class="btn btn-dark btn-block btn-lg" type="submit">
+                                        Entrar <i class="fa-solid fa-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center align-items-center pt-3">
+                <div class="col-6" style="max-width: 400px;">
+                    <div class="card shadow">
+                        <div class="card-body text-center">
+                            <span class="text-dark">
+                                <strong>
+                                    Desenvolvido pela <br />
+                                    Equipe de TI - Induscabos
+                                </strong>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<script src="~/lib/fontawesome-free-6.2.1-web/js/all.js"></script>
+<script src="~/js/alerts/alerts.js"></script>

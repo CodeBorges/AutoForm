@@ -1,0 +1,50 @@
+﻿@model List<PerguntaViewModel>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td class="td-clicavel">
+            <a href="#" onclick="editar();" class="td-clicavel">
+                <div class="td-clicavel">
+                    <i class="fa-solid fa-pen-to-square fa-lg text-success"></i>
+                </div>
+            </a>
+        </td>
+        <td class="tdIdPergunta" hidden>@item.ID</td>
+        <td class="tdIdFormulario" hidden>@item.ID_FORMULARIO</td>
+        <td class="tdIdCategoria" hidden>@item.ID_CATEGORIA</td>
+        <td class="tdNomePergunta">@item.NOME.Titleize()</td>
+        <td class="tdNomeCategoria">@item.NOME_CATEGORIA.Titleize()</td>
+        <td class="tdNomeFormulario">@item.NOME_FORMULARIO.Titleize()</td>
+        <td class="DataCadastro">
+            @if (item.DATA_CADASTRO.HasValue)
+            {
+                @item.DATA_CADASTRO.Value.ToShortDateString()
+            }
+            else
+            {
+                @item.DATA_CADASTRO
+            }
+        </td>
+        <td class="UsuarioCadastro">@item.NOME_CADASTRO.Titleize()</td>
+        <td class="DataAlteracao">
+            @if (item.DATA_ALTERACAO.HasValue)
+            {
+                @item.DATA_ALTERACAO.Value.ToShortDateString()
+            }
+            else
+            {
+                @item.DATA_ALTERACAO
+            }
+        </td>
+        <td class="UsuarioAlteracao">@item.NOME_ALTERACAO</td>
+        <td class="td-clicavel">
+            <a href="#" class="td-clicavel" onclick="excluir(@item.ID);">
+                <div class="td-clicavel">
+                    <i class="fa-solid fa-trash fa-lg text-danger"></i>
+                </div>
+            </a>
+        </td>
+    </tr>
+}
+

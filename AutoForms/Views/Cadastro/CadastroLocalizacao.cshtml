@@ -1,0 +1,132 @@
+﻿@model List<LocalizacaoViewModel>
+@{
+    ViewData["Title"] = "Cadastro de Categoria";
+}
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Cadastro de Localização</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col col-lg-12 col-md-12 col-sm-12 col-xl-6">
+                        <form method="post">
+                            <div class="row">
+                                <div class="mb-3">
+                                    <input type="text" id="txtIdLocalizacao" hidden/>
+                                    <label for="txtNomeLocalizacao" class="form-label">Insira a Localização</label>
+                                    <input type="text" id="txtNomeLocalizacao" name="Nome" class="form-control" placeholder="Ex. Unidade 1" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="mb-3">
+                                        <a id="btnCadastrar" onclick="cadastrar();" class="btn btn-primary">Cadastrar</a>
+                                        <a id="btnEditar" onclick="salvar();" class="btn btn-success" hidden>Salvar</a>
+                                        <button id="btnCancelar" onclick="cancelar();" type="reset" class="btn btn-danger" hidden>Cancelar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+
+                <hr class="border-3 mb-4" style="opacity: inherit;" />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-striped text-center" style="font-size: 13px">
+                                <thead>
+                                    <tr>
+                                        <th>Editar</th>
+                                        <th>Nome</th>
+                                        <th>Data de Cadastro</th>
+                                        <th>Usuário que cadastrou</th>
+                                        <th>Última Alteração</th>
+                                        <th>Usuário que alterou</th>
+                                        <th>Excluir</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="td-clicavel">
+                                                <a href="#" onclick="editar();" class="td-clicavel">
+                                                    <div class="td-clicavel">
+                                                        <i class="fa-solid fa-pen-to-square fa-lg text-success"></i>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                            <td class="tdIdLocalizacao" hidden>@item.ID</td>
+                                            <td class="tdNomeLocalizacao">@item.NOME.Titleize()</td>
+                                            <td class="DataCadastro">
+                                                @if (item.DATA_CADASTRO.HasValue)
+                                                {
+                                                    @item.DATA_CADASTRO.Value.ToShortDateString()
+                                                }
+                                                else
+                                                {
+                                                    @item.DATA_CADASTRO
+                                                }
+                                            </td>
+                                            <td class="UsuarioCadastro">@item.NOME_CADASTRO</td>
+                                            <td class="DataAlteracao">
+                                                @if (item.DATA_ALTERACAO.HasValue)
+                                                {
+                                                    @item.DATA_ALTERACAO.Value.ToShortDateString()
+                                                }
+                                                else
+                                                {
+                                                    @item.DATA_ALTERACAO
+                                                }
+                                            </td>
+                                            <td class="UsuarioAlteracao">@item.NOME_ALTERACAO</td>
+                                            <td class="td-clicavel">
+                                                <a href="#" class="td-clicavel" onclick="excluir(@item.ID);">
+                                                    <div class="td-clicavel">
+                                                        <i class="fa-solid fa-trash fa-lg text-danger"></i>
+                                                    </div>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" id="modalExcluir" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Atenção!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente excluir esse registro?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
+                <a id="btnExcluir" class="btn btn-danger">Sim</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+        <script src="~/js/cadastro/Localizacoes.js"></script>
+    }

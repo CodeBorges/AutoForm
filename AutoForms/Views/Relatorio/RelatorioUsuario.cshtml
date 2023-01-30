@@ -1,0 +1,61 @@
+﻿@model List<DocumentoViewModel>
+@{
+    ViewData["Title"] = "Cadastro de Categoria";
+}
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+<div class="row">
+    <div class="col-12">
+        <h4 class="content-title">Documentos Finalizados</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <label for="txtBuscar" class="form-label">Pesquise seu documento</label>
+                <input class="form-control w-25" type="text" id="txtBuscar" placeholder="Pesquisar...">
+                <hr class="border-3 mb-4" style="opacity: inherit;" />
+                <div class="row">
+                    <div class="col-12">
+                        <div class="table-responsive">
+                            <table id="table" class="table table-bordered table-hover table-striped text-center" style="font-size: 13px">
+                                <thead>
+                                    <tr>
+                                        <th>Visualizar</th>
+                                        <th>Documento</th>
+                                        <th>Formulario</th>
+                                        <th>Departamento</th>
+                                        <th>Localização</th>
+                                        <th>Media Geral</th>
+                                        <th>Data de Cadastro</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="tdVisualizar">
+                                                <i class="fa-solid fa-eye"></i>
+                                            </td>
+                                            <td class="tdDocumento">@item.ID</td>
+                                            <td class="tdNomeFormulario">@item.NOME_FORMULARIO</td>
+                                            <td class="tdNomeDepartamento">@item.NOME_DEPARTAMENTO</td>
+                                            <td class="tdNomeLocalizacao">@item.NOME_LOCALIZACAO</td>
+                                            <td class="tdMediaGeral">@item.MEDIA_GERAL%</td>
+                                            <td class="DataCadastro">@item.DATA_CADASTRO.ToShortDateString()</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/relatorio/CampoBuscar.js"></script>
+}

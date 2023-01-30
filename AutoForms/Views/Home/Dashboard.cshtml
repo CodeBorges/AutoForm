@@ -1,0 +1,87 @@
+﻿@model DashboardViewModel
+
+@{
+    ViewData["Title"] = "Lista Formulários";
+}
+
+<partial name="/Views/Shared/_AlertasPartial.cshtml" />
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1>Dashboard</h1>
+        <input type="text" id="txtIdUsuario" value="@Model.UsuarioLogado.ID" hidden />
+        @*MOSTRAR EM FORMATO DE CARDS*@
+        <div class="row justify-content-center align-items-center" id="card">
+            <div class="col-md-10 offset-md-1">
+                <div class="row d-flex align-items-center ">
+                    <div class="card col col-lg-6 col-md-6 col-sm-12 col-xl-12 m-2 card-responsive" style="width: 24rem; border-left: 2px solid #1CC88A; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                        <a asp-controller="Relatorio" asp-action="RelatorioUsuario" class="text-decoration-none">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-uppercase mb-1" style="color: #1CC88A">
+                                            Documentos Finalizados
+                                        </div>
+                                        @if (Model.DocumentosFinalizados.Count <= 0)
+                                        {
+                                            <div class="h5 mb-0 font-weight-bold">
+                                                Não há documentos finalizados
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="h5 mb-0 font-weight-bold text-dark">
+                                                Total: @Model.DocumentosFinalizados.Count
+                                            </div>
+                                        }
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="fa-solid fa-file-lines fa-2x" style="color: #DDDFEB "></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="card col col-lg-6 col-md-6 col-sm-12 col-xl-12 m-2 card-responsive" style="width: 24rem; border-left: 2px solid #FF7777; box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; ">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                <div class="col mr-2">
+                                    <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                        Formulario Pendente
+                                    </div>
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col-auto">
+                                            @if (Model.DocumentoPendente != null)
+                                            {
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-dark">
+                                                    Documento Nº: @Model.DocumentoPendente.ID
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="h5 mb-0 mr-3 font-weight-bold text-dark">
+                                                    Não há formulário pendente
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-auto">
+                                    <i class="fa-solid fa-pen-to-square fa-2x" style="color: #DDDFEB "></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script src="~/js/home/Formulario.js"></script>
+    <script src="~/js/home/Dashboard.js"></script>
+}

@@ -1,0 +1,210 @@
+﻿@{
+    var usuario = new Usuario();
+
+    usuario = JsonConvert.DeserializeObject<Usuario>(Context.Session.GetString("Usuario"));
+    bool administrador = false;
+    bool usuarioPadrao = false;
+
+    if (usuario != null)
+    {
+
+        if (usuario.ID_TIPO_USUARIO == (int)Utils.TipoUsuario.ADMINISTRADOR)
+            administrador = true;
+        else if (usuario.ID_TIPO_USUARIO == (int)Utils.TipoUsuario.USUARIO_PADRÃO)
+            usuarioPadrao = true;
+    }
+
+
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Forms_Induscabos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/layout/header.css" />
+    <link rel="stylesheet" href="~/css/formulario/perguntas.css" />
+    <link rel="stylesheet" href="~/css/formulario/formulario.css" />
+
+</head>
+<body>
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar Search-->
+        <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+            <div class="input-group">
+                <input class="form-control" id="nomeFormulario" type="text" placeholder="Buscar..." aria-label="Buscar..." aria-describedby="btnNavbarSearch" />
+                <button class="btn btn-outline-light" id="btnNavbarSearch" type="button" onclick="retornarFormulario();"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a onclick="ocultarToast();" class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li><a href="#" class="dropdown-item" onclick="ModalAlterar()">Alterar Senha</a></li>
+                    <li><a href="#" class="dropdown-item" onclick="ModalLogout()">Sair</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">Início</div>
+                        <a class="nav-link" asp-controller="Home" asp-action="Dashboard">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Dashboard
+                        </a>
+                        <div class="sb-sidenav-menu-heading">Interface</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Visão Gerencial
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" asp-controller="Home" asp-action="FormularioVisaoGerencial">Formulário</a>
+                                <a class="nav-link" asp-controller="Home" asp-action="ComunicacaoInternaVisaoGerencial">Comunicação Interna</a>
+                                <a class="nav-link" asp-controller="Home" asp-action="AutorizacaoSaidaVisaoGerencial">Autorização de Saida</a>
+                            </nav>
+                        </div>
+
+                        <div class="sb-sidenav-menu-heading">Relatórios</div>
+                        @*<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                            <div class="sb-nav-link-icon"><i class="fa-regular fa-folder"></i></div>
+                            Relatórios
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav accordion" id="sidenavAccordionPages">
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAuth" aria-expanded="false" aria-controls="pagesCollapseAuth">
+                                    Documento por Departamento
+                                </a>
+                                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseError" aria-expanded="false" aria-controls="pagesCollapseError">
+                                    Documento por Formulário
+                                </a>
+                            </nav>
+                        </div>*@
+                        <a class="nav-link" asp-controller="Relatorio" asp-action="RelatorioUsuario">
+                            <div class="sb-nav-link-icon"><i class="fa-regular fa-folder"></i></div>
+                            Meus Documentos
+                        </a>
+
+                        @if (administrador || usuarioPadrao)
+                        {
+                            <div class="sb-sidenav-menu-heading">Administrador</div>
+                            if (administrador || usuarioPadrao)
+                            {
+                                <a class="nav-link" asp-controller="Cadastro" asp-action="Index">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>
+                                    Cadastros
+                                </a>
+                            }
+                            if (administrador)
+                            {
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">
+                                    <div class="sb-nav-link-icon"><i class="fa-solid fa-gear"></i></div>
+                                    Admin
+                                </a>
+                            }
+                        }
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer text-capitalize">
+                    <div class="small">Usuario:</div>
+                    <p class="text-capitalize">@usuario.NOME</p>
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4 p-4">
+                    @*@Html.BuildBreadcrumbNavigation();*@
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalLogout" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Atenção!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Olá, <strong>@usuario.NOME</strong> tem certeza que deseja sair?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <a type="button" class="btn btn-dark" asp-controller="Home" asp-action="Logout">Sim</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalAlterar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form asp-controller="Home" asp-action="AlterarSenha" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Alterar senha</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <span id="txtSenhaUsuario" hidden>@usuario.SENHA</span>
+                        <div class="mb-3">
+                            <label for="txtSenhaAtual" class="col-form-label">Senha Atual</label>
+                            <input type="password" class="form-control" name="txtSenhaAtual" id="txtSenhaAtual" onkeyup="VerificarSenhaAtual()">
+                            <p id="txtMensagemSenhaAtual" hidden>Senha incorreta!</p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtNovaSenha" class="col-form-label">Nova senha</label>
+                            <input type="password" class="form-control" name="txtNovaSenha" id="txtNovaSenha" onkeyup="VerificarNovaSenha()">
+                        </div>
+                        <div class="mb-3">
+                            <label for="txtRepetirSenha" class="col-form-label">Digite a senha novamente</label>
+                            <input type="password" class="form-control" name="txtRepetirSenha" id="txtRepetirSenha" onkeyup="VerificarNovaSenha()">
+                            <p id="txtMensagem" hidden>As senhas não são iguais.</p>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="mostrarSenha">
+                            <label class="form-check-label" for="mostrarSenha" style="user-select: none;">
+                                Mostrar Senha
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="submit" id="btnAlterar" class="btn btn-dark" disabled>Alterar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/scripts.js" asp-append-version="true"></script>
+    <script src="~/lib/fontawesome-free-6.2.1-web/js/all.js"></script>
+    <script src="~/js/layout/FunctionsLayout.js"></script>
+    <script src="~/js/alerts/alerts.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

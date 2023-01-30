@@ -1,0 +1,11 @@
+﻿.FirstLetterUpper {
+    text-transform: lowercase;
+}
+
+    .FirstLetterUpper::first-letter {
+        text-transform: uppercase;
+    }
+
+.focus-disabled:focus {
+    box-shadow: none !important;
+}
