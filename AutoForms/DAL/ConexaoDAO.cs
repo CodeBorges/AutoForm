@@ -7,7 +7,7 @@ namespace AutoForms.DAL
 {
     public class ConexaoDAO
     {
-        private static readonly string stringFormularioHomologacao = "Data Source=SQL003; Database=programas; Uid=it; Pwd=123456; Trusted_Connection=false; Encrypt=False";
+        private static readonly string stringFormularioHomologacao = "Data Source=PC_TESTE; Database=programas; Uid=it; Pwd=123456; Trusted_Connection=false; Encrypt=False";
 
         public static string Formularios()
         {
